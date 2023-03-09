@@ -1,17 +1,34 @@
 # do not forget to require your gem dependencies
 # do not forget to require_relative your local dependencies
+require_relative "requester"
+require_relative "presenter"
 
 class CliviaGenerator
   # maybe we need to include a couple of modules?
+  include Presenter
+  include Requester
 
   def initialize
-    # we need to initialize a couple of properties here
+    # we need to initialize a couple of properties here 
+    @options = ["random", "scores", "exit"]
+    @prompt = nil
   end
 
   def start
-    # welcome message
-    # prompt the user for an action
-    # keep going until the user types exit
+    print_welcome
+    loop do
+      user_input = gets_option(@prompt, @options)
+      case user_input
+      when "random"
+        puts "pusiste random"
+      when "scores"
+        puts "pusiste scores"
+      when "exit"
+        break
+      else
+        puts "Invalid option!"
+      end
+    end
   end
 
   def random_trivia

@@ -1,7 +1,7 @@
 module Requester
-  def select_main_menu_action
-    # prompt the user for the "random | scores | exit" actions
-  end
+  # def select_main_menu_action
+  #   # prompt the user for the "random | scores | exit" actions
+  # end
 
   def ask_question(question)
     # show category and difficulty from question
@@ -18,7 +18,8 @@ module Requester
   end
 
   def gets_option(prompt, options)
-    # prompt for an input
-    # keep going until the user gives a valid option
+    puts options.join(" |")
+    print "> "
+    prompt = gets.chomp
   end
 end
