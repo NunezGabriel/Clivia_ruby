@@ -5,7 +5,7 @@ module Presenter
     puts "###################################"
   end
 
-  def print_score(score)
+  def print_score(score)#set up the data 
     # print the score message
   end
 end
