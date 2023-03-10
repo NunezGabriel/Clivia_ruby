@@ -1,8 +1,20 @@
 module Presenter
   def print_welcome
-    puts "###################################"
-    puts "#   Welcome to Clivia Generator   #"
-    puts "###################################"
+    
+    puts "    █▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀█
+    █░░╦─╦╔╗╦─╔╗╔╗╔╦╗╔╗░░█
+    █░░║║║╠─║─║─║║║║║╠─░░█
+    █░░╚╩╝╚╝╚╝╚╝╚╝╩─╩╚╝░░█
+    █ to Clivia Generator█
+    █▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄█
+    "
+  end
+
+  def end_img
+    puts "    █▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀█
+    █░░  Thanks for use  ░░█
+    █░░ clivia Generator ░░█
+    █▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄█"
   end
 
   def print_score(score)#set up the data 

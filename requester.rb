@@ -22,7 +22,7 @@ module Requester
       print "> "
     else
       print_welcome 
-
+    end
   end
 
   def gets_option(prompt, options)

@@ -3,16 +3,19 @@
 require 'terminal-table'
 require 'json'
 require 'htmlentities'
+require 'httparty'
 require_relative "requester"
 require_relative "presenter"
 
 class CliviaGenerator
-  # maybe we need to include a couple of modules?
+
   include Presenter
   include Requester
 
   def initialize
-    # we need to initialize a couple of properties here 
+    @base_uri = "https://opentdb.com/api.php?amount=10"
+    @response = HTTParty.get(@base_uri)
+    @questions = load_questions[:results]
     @options = ["random", "scores", "exit"]
     @prompt = nil
     @score = 0
@@ -25,9 +28,11 @@ class CliviaGenerator
       case user_input
       when "random"
         puts "pusiste random"
+        load_questions
       when "scores"
         puts "pusiste scores"
       when "exit"
+        end_img
         break
       else
         puts "Invalid option!"
@@ -35,16 +40,26 @@ class CliviaGenerator
     end
   end
 
-  def random_trivia # 1 & 2 here
+  def random_trivia 
     # load the questions from the api
     # questions are loaded, then let's ask them
+    decoder = HTMLEntities.new
+    question_asked = parse_questions
+    @questions.each do |element|
+      puts "Category: #{element[:category]} | Difficulty: #{element[:difficulty]}"
+      puts "Question: #{decoder.decode(element[:question])}"
+    end
   end
 
-  def ask_questions #2
+  def ask_questions 
     # ask each question
     # if response is correct, put a correct message and increase score
     # if response is incorrect, put an incorrect message, and which was the correct answer
     # once the questions end, show user's score and promp to save it
+  end
+
+  def load_questions #0.5
+    parse_body = JSON.parse(@response.body, symbolize_names: true)
   end
 
   def save(data)
@@ -53,15 +68,6 @@ class CliviaGenerator
 
   def parse_scores
     # get the scores data from file
-  end
-
-  def load_questions #1
-    # ask the api for a random set of questions
-    # then parse the questions
-  end
-
-  def parse_questions #here we use htmlentities
-    # questions came with an unexpected structure, clean them to make it usable for our purposes
   end
 
   def print_scores #here we use terminal-table
@@ -78,3 +84,7 @@ class CliviaGenerator
     # +-----------+-------+
   end
 end
+
+ras = CliviaGenerator.new
+
+ras.random_trivia
