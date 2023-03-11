@@ -19,6 +19,7 @@ class CliviaGenerator
     @options = ["random", "scores", "exit"]
     @prompt = nil
     @score = 0
+    @index = nil
   end
 
   def start
@@ -27,8 +28,7 @@ class CliviaGenerator
       user_input = gets_option(@prompt, @options)
       case user_input
       when "random"
-        puts "pusiste random"
-        load_questions
+        random_trivia 
       when "scores"
         puts "pusiste scores"
       when "exit"
@@ -44,11 +44,26 @@ class CliviaGenerator
     # load the questions from the api
     # questions are loaded, then let's ask them
     decoder = HTMLEntities.new
-    question_asked = parse_questions
+    # real_index = nil
     @questions.each do |element|
       puts "Category: #{element[:category]} | Difficulty: #{element[:difficulty]}"
       puts "Question: #{decoder.decode(element[:question])}"
+      question_options = sorting_answers(element)
+      question_options.each do |option|
+        @index = question_options.index(option)
+        puts "#{@index+1}. #{option}"
+      end
+      print "> "
+      answer = gets.chomp.to_i
+      if question_options[answer-1] == element[:correct_answer]
+        puts "#{question_options[answer-1]}... CORRECT you're smart :)"
+        @score+=10
+      else
+        puts "#{question_options[answer-1]}... INCORRECT!"
+        puts "The correct answer was: #{element[:correct_answer]}"
+      end
     end
+    will_save?(@score)
   end
 
   def ask_questions 
@@ -56,6 +71,12 @@ class CliviaGenerator
     # if response is correct, put a correct message and increase score
     # if response is incorrect, put an incorrect message, and which was the correct answer
     # once the questions end, show user's score and promp to save it
+  end
+
+  def sorting_answers(element)
+    arr = element[:incorrect_answers]
+    arr.push(element[:correct_answer])
+    arr.shuffle
   end
 
   def load_questions #0.5
@@ -85,6 +106,6 @@ class CliviaGenerator
   end
 end
 
-ras = CliviaGenerator.new
+# ras = CliviaGenerator.new
 
-ras.random_trivia
+# ras.random_trivia

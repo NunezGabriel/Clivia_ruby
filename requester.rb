@@ -1,12 +1,5 @@
 module Requester
 
-  def ask_question(question)
-    # show category and difficulty from question
-    # show the question
-    # show each one of the options
-    # grab user input
-  end
-
   def will_save?(score) #FALTA COMPLETAR LA FUNCION XD
     # show user's score
     puts "Well done! Your score is #{score}"
