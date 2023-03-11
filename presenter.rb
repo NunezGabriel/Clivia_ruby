@@ -1,7 +1,6 @@
 module Presenter
   def print_welcome
-
-    puts "    
+    puts "
     █▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀█
     █░░╦─╦╔╗╦─╔╗╔╗╔╦╗╔╗░░█
     █░░║║║╠─║─║─║║║║║╠─░░█
@@ -12,14 +11,17 @@ module Presenter
   end
 
   def end_img
-    puts "    
+    puts "
     █▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀█
     █░░  Thanks for use  ░░█
     █░░ clivia Generator ░░█
     █▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄█"
-
   end
 
+  def top_table
+    puts "+-----------+-----+
+|    Top Scores   |
++-----------+-----+
+| Name      |Score|"
+  end
 end
-
-# print_welcome
