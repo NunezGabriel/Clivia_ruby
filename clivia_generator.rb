@@ -20,6 +20,8 @@ class CliviaGenerator
     @prompt = nil
     @score = 0
     @index = nil
+    @name = nil
+    @player = []
   end
 
   def start
@@ -41,10 +43,7 @@ class CliviaGenerator
   end
 
   def random_trivia 
-    # load the questions from the api
-    # questions are loaded, then let's ask them
     decoder = HTMLEntities.new
-    # real_index = nil
     @questions.each do |element|
       puts "Category: #{element[:category]} | Difficulty: #{element[:difficulty]}"
       puts "Question: #{decoder.decode(element[:question])}"
@@ -63,15 +62,9 @@ class CliviaGenerator
         puts "The correct answer was: #{element[:correct_answer]}"
       end
     end
-    will_save?(@score)
+    save_options
   end
 
-  def ask_questions 
-    # ask each question
-    # if response is correct, put a correct message and increase score
-    # if response is incorrect, put an incorrect message, and which was the correct answer
-    # once the questions end, show user's score and promp to save it
-  end
 
   def sorting_answers(element)
     arr = element[:incorrect_answers]
@@ -83,8 +76,30 @@ class CliviaGenerator
     parse_body = JSON.parse(@response.body, symbolize_names: true)
   end
 
-  def save(data)
-    # write to file the scores data
+  def save_options
+    user_save_score = will_save?(@score)
+    if user_save_score == "y" || user_save_score == "Y"
+      puts "Type the name to assign to the score"
+      print "> "
+      @name = gets.chomp
+      if @name == ""
+        @name = "Anonymous"
+      end
+      save(@name, @score)
+      print_welcome
+    elsif user_save_score == "n" || user_save_score == "N"
+      print_welcome
+    else
+      puts "invalid option!"
+    end
+  end
+
+
+  def save(name,score)
+    @player << { name: name, score: score }
+    File.open('score.json', 'w') do |f|
+      f.write(JSON.generate(@player))
+    end
   end
 
   def parse_scores
@@ -105,7 +120,3 @@ class CliviaGenerator
     # +-----------+-------+
   end
 end
-
-# ras = CliviaGenerator.new
-
-# ras.random_trivia

@@ -1,7 +1,8 @@
 module Presenter
   def print_welcome
-    
-    puts "    █▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀█
+
+    puts "    
+    █▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀█
     █░░╦─╦╔╗╦─╔╗╔╗╔╦╗╔╗░░█
     █░░║║║╠─║─║─║║║║║╠─░░█
     █░░╚╩╝╚╝╚╝╚╝╚╝╩─╩╚╝░░█
@@ -11,15 +12,14 @@ module Presenter
   end
 
   def end_img
-    puts "    █▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀█
+    puts "    
+    █▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀█
     █░░  Thanks for use  ░░█
     █░░ clivia Generator ░░█
     █▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄█"
+
   end
 
-  def print_score(score)#set up the data 
-    # print the score message
-  end
 end
 
 # print_welcome
