@@ -21,7 +21,6 @@ class CliviaGenerator
     @score = 0
     @index = nil
     @name = nil
-    @player = []
   end
 
   def start
@@ -63,6 +62,8 @@ class CliviaGenerator
       end
     end
     save_options
+    @score = 0
+    #para que ya no de error aca debes reiniciar la clase
   end
 
 
@@ -70,9 +71,10 @@ class CliviaGenerator
     arr = element[:incorrect_answers]
     arr.push(element[:correct_answer])
     arr.shuffle
+    arr.uniq 
   end
 
-  def load_questions #0.5
+  def load_questions 
     parse_body = JSON.parse(@response.body, symbolize_names: true)
   end
 
@@ -96,14 +98,13 @@ class CliviaGenerator
 
 
   def save(name,score)
-    @player << { name: name, score: score }
-    File.open('score.json', 'w') do |f|
-      f.write(JSON.generate(@player))
+    data = File.read('score.json')
+    score_parsed = JSON.parse(data)
+    element = { "name" => name, "score" => score }
+    score_parsed["players"] << element
+    File.open('score.json', 'w') do |file|
+      file.write(JSON.pretty_generate(score_parsed))
     end
-  end
-
-  def parse_scores
-    # get the scores data from file
   end
 
   def print_scores #here we use terminal-table
@@ -120,3 +121,6 @@ class CliviaGenerator
     # +-----------+-------+
   end
 end
+
+# ras = CliviaGenerator.new
+# ras.save()
